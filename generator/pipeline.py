@@ -26,3 +26,5 @@ def testing():
         ]
 
     generate_elevation(hexgrid, 1234)
+
+    print(hexgrid)

@@ -1,13 +1,22 @@
 import opensimplex
 
-#TODO add fractal octaves
-def generate_elevation(hexes, seed):
-    # Highest elevation in Europe 5642m
-    # Lowest elevation in Europe 
+def generate_elevation(hexes, seed, octaves=6, persistence=0.5, lacunarity=2.0):
     opensimplex.seed(seed)
     
     for y, hex_row in enumerate(hexes):
         for x, hex in enumerate(hex_row):
-            hex_row[x].elevation = opensimplex.noise2(x=x+0.5, y=y+0.5)
+            elevation = 0.0
+            amplitude = 1.0
+            frequency = 1.0
+            max_value = 0.0
 
-    print(hexes)
+            for _ in range(octaves):
+                elevation += opensimplex.noise2(
+                    x=(x+0.5)*frequency,
+                    y=(y+0.5)*frequency,
+                    ) * amplitude
+                max_value += amplitude
+                amplitude *= persistence
+                frequency *= lacunarity
+
+            hex_row[x].elevation = elevation/max_value
