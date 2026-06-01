@@ -26,3 +26,23 @@ class HexGrid:
                 row += biome_marker
             
             print(row)
+    
+    def calc_neighbors(self,x:int,y:int)->list[tuple[int,int]]:
+        neighbors:list[tuple[int,int]] = []
+        offset = y%2
+
+        if x>0:
+            neighbors.append((x-1,y))
+            if y>0:
+                neighbors.append((x-1+offset,y-1))
+            if y<self.ysize-1:
+                neighbors.append((x-1+offset,y+1))
+    
+        if x<self.xsize-1:
+            neighbors.append((x+1,y))
+            if y>0:
+                neighbors.append((x+offset,y-1))
+            if y<self.ysize-1:
+                neighbors.append((x+offset,y+1))
+
+        return neighbors
