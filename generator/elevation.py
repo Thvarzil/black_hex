@@ -1,6 +1,6 @@
 import opensimplex
 
-def generate_elevation(hexes, seed, octaves=6, persistence=0.5, lacunarity=2.0):
+def generate_elevation(hexes, seed, octaves=6, persistence=0.5, lacunarity=2.0, offset=0.0):
     opensimplex.seed(seed)
     
     for y, hex_row in enumerate(hexes):
@@ -19,4 +19,6 @@ def generate_elevation(hexes, seed, octaves=6, persistence=0.5, lacunarity=2.0):
                 amplitude *= persistence
                 frequency *= lacunarity
 
-            hex_row[x].elevation = elevation/max_value
+            hex_row[x].elevation = elevation/max_value + offset
+            if hex_row[x].elevation < 0:
+                hex_row[x].biome = "Ocean"
