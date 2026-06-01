@@ -14,6 +14,7 @@ This file will need to:
 """
 
 from generator.elevation import generate_elevation
+from generator.moisture import generate_moisture
 from hex import Hex
 
 def testing():
@@ -26,5 +27,6 @@ def testing():
         ]
 
     generate_elevation(hexgrid, 1234)
+    generate_moisture(hexgrid, 1234)
 
     print(hexgrid)
