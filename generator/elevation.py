@@ -1,10 +1,14 @@
 import opensimplex
 
-def generate_elevation(hexes, seed, octaves=6, persistence=0.5, lacunarity=2.0, offset=0.0):
+from hex_grid import HexGrid
+
+def generate_elevation(hexgrid:HexGrid, seed, octaves=6, persistence=0.5, lacunarity=2.0, offset=0.0):
+
     opensimplex.seed(seed)
-    
-    for y, hex_row in enumerate(hexes):
-        for x, hex in enumerate(hex_row):
+    hexes = hexgrid.grid
+
+    for y in range(hexgrid.ysize):
+        for x in range(hexgrid.xsize):
             elevation = 0.0
             amplitude = 1.0
             frequency = 1.0
@@ -19,6 +23,6 @@ def generate_elevation(hexes, seed, octaves=6, persistence=0.5, lacunarity=2.0, 
                 amplitude *= persistence
                 frequency *= lacunarity
 
-            hex_row[x].elevation = elevation/max_value + offset
-            if hex_row[x].elevation < 0:
-                hex_row[x].biome = "Ocean"
+            hexes[(x,y)].elevation = elevation/max_value + offset
+            if hexes[(x,y)].elevation < 0:
+                hexes[(x,y)].biome = "Ocean"

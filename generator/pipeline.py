@@ -15,18 +15,12 @@ This file will need to:
 
 from generator.elevation import generate_elevation
 from generator.moisture import generate_moisture
-from hex import Hex
+from hex_grid import HexGrid
 
-def testing():
-    hexgrid = [
-        [Hex() for i in range(5)],
-        [Hex() for i in range(5)],
-        [Hex() for i in range(5)],
-        [Hex() for i in range(5)],
-        [Hex() for i in range(5)]
-        ]
+def run_generation(seed:int):
+    hexgrid = HexGrid()
+    
+    generate_elevation(hexgrid, seed)
+    generate_moisture(hexgrid, seed)
 
-    generate_elevation(hexgrid, 1234)
-    generate_moisture(hexgrid, 1234)
-
-    print(hexgrid)
+    hexgrid.print_grid()

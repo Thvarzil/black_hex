@@ -1,10 +1,14 @@
 import opensimplex
 
-def generate_moisture(hexes, seed, octaves=6, persistence=0.5, lacunarity=2.0, offset=0.0):
+
+from hex_grid import HexGrid
+
+def generate_moisture(hexgrid:HexGrid, seed, octaves=6, persistence=0.5, lacunarity=2.0, offset=0.0):
     opensimplex.seed(seed)
-    
-    for y, hex_row in enumerate(hexes):
-        for x, hex in enumerate(hex_row):
+    hexes = hexgrid.grid
+
+    for y in range(hexgrid.ysize):
+        for x in range(hexgrid.xsize):
             moisture = 0.0
             amplitude = 1.0
             frequency = 1.0
@@ -19,4 +23,4 @@ def generate_moisture(hexes, seed, octaves=6, persistence=0.5, lacunarity=2.0, o
                 amplitude *= persistence
                 frequency *= lacunarity
 
-            hex_row[x].moisture = moisture/max_value + offset
+            hexes[(x,y)].moisture = moisture/max_value + offset
