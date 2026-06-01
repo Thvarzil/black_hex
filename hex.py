@@ -4,5 +4,5 @@ from dataclasses import dataclass
 class Hex:
     elevation: float = 0.0
     temperature: float = 0.0
-    humidity: float = 0.0
+    moisture: float = 0.0
     biome: str = ""

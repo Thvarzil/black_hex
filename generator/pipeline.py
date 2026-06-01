@@ -3,8 +3,8 @@ This file will need to:
  - Generate a random seed
  - Append layer names and encrypt to make 3 separate keys for each layer
  - Call each step of the generation process:
-    1. Run elevation noise pass → `elevation` float per hex in -1..1
-    2. Classify ocean: Apply variable elevation offset, hexes with positive elevation are above water
+    1. Run elevation noise pass → `elevation` float per hex in -1..1 DONE
+    2. Classify ocean: Apply variable elevation offset, hexes with positive elevation are above water DONE
     3. Compute `coast_proximity` per hex (BFS distance to nearest ocean tile, normalized)
     4. Run moisture noise pass; apply coast bonus scaled by `coast_proximity` and `base_humidity`
     5. Run temperature pass (latitude bias + elevation modifier + noise)
