@@ -1,11 +1,11 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from hex import Hex
 
 @dataclass
 class HexGrid:
-    xsize: int = 5
-    ysize: int = 5
-    grid: dict[tuple[int,int],Hex]
+    xsize: int = 25
+    ysize: int = 25
+    grid: dict[tuple[int,int],Hex] = field(default_factory=dict)
 
     def __post_init__(self):
         for x in range(self.xsize):

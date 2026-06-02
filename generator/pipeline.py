@@ -12,15 +12,26 @@ This file will need to:
     7. Remaining non-water hexes → Whittaker biome lookup(temperature, moisture)
  - Return 2d list of hexes
 """
+import xxhash
+
+from secrets import randbelow
 
 from generator.elevation import generate_elevation
 from generator.moisture import generate_moisture
 from hex_grid import HexGrid
 
-def run_generation(seed:int):
+def run_generation(seed:int=None):
     hexgrid = HexGrid()
     
-    generate_elevation(hexgrid, seed)
-    generate_moisture(hexgrid, seed)
+    # we are assuming that we either got a usable seed or no input if we got to this point
+    if not seed:
+        seed = randbelow(2**32)
+
+    generate_elevation(hexgrid, layer_seed(seed, "elevation"))
+    generate_moisture(hexgrid, layer_seed(seed, "moisture"))
 
     hexgrid.print_grid()
+
+def layer_seed(base_seed:int, layer:str)->int:
+    return xxhash.xxh32(f"{base_seed}:{layer}").intdigest()
+    
