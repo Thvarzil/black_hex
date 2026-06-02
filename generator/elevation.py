@@ -2,7 +2,9 @@ import opensimplex
 
 from hex_grid import HexGrid
 
-def generate_elevation(hexgrid:HexGrid, seed, octaves=6, persistence=0.5, lacunarity=2.0, offset=0.0):
+BASE_SCALE=0.08
+
+def generate_elevation(hexgrid:HexGrid, seed, octaves=6, persistence=0.5, lacunarity=2.0, offset=0.1):
 
     opensimplex.seed(seed)
     hexes = hexgrid.grid
@@ -16,8 +18,8 @@ def generate_elevation(hexgrid:HexGrid, seed, octaves=6, persistence=0.5, lacuna
 
             for _ in range(octaves):
                 elevation += opensimplex.noise2(
-                    x=(x+0.5)*frequency,
-                    y=(y+0.5)*frequency,
+                    x=(x+0.5)* BASE_SCALE * frequency,
+                    y=(y+0.5)* BASE_SCALE * frequency,
                     ) * amplitude
                 max_value += amplitude
                 amplitude *= persistence

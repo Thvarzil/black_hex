@@ -3,8 +3,8 @@ from hex import Hex
 
 @dataclass
 class HexGrid:
-    xsize: int = 25
-    ysize: int = 25
+    xsize: int = 50
+    ysize: int = 50
     grid: dict[tuple[int,int],Hex] = field(default_factory=dict)
 
     def __post_init__(self):
@@ -21,7 +21,7 @@ class HexGrid:
             
             for x in range(self.xsize):
                 # Cast biome to letter or x for undefined
-                biome_marker = self.grid[(x,y)].biome[0] if self.grid[(x,y)].biome else "x"
+                biome_marker = self.grid[(x,y)].biome[0] if self.grid[(x,y)].biome else "|"
                 biome_marker += " "
                 row += biome_marker
             
