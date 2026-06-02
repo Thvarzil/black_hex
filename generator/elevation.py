@@ -28,3 +28,4 @@ def generate_elevation(hexgrid:HexGrid, seed, octaves=6, persistence=0.5, lacuna
             hexes[(x,y)].elevation = elevation/max_value + offset
             if hexes[(x,y)].elevation < 0:
                 hexes[(x,y)].biome = "Ocean"
+                hexes[(x,y)].distance_to_ocean = 0

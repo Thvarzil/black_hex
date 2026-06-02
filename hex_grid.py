@@ -26,6 +26,20 @@ class HexGrid:
                 row += biome_marker
             
             print(row)
+
+    def print_dto_grid(self):
+        for y in range(self.ysize):
+            # initialize the row, with rightward indent for odd rows
+            row = ""
+            if y%2==1:
+                row+=" "
+
+            for x in range(self.xsize):
+                dto_marker = str(self.grid[(x,y)].distance_to_ocean)
+                dto_marker += " "
+                row += dto_marker
+
+            print(row)
     
     def calc_neighbors(self,x:int,y:int)->list[tuple[int,int]]:
         neighbors:list[tuple[int,int]] = []

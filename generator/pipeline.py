@@ -16,6 +16,7 @@ import xxhash
 
 from secrets import randbelow
 
+from generator.coastal_prox import calculate_coastal_proximity
 from generator.elevation import generate_elevation
 from generator.moisture import generate_moisture
 from hex_grid import HexGrid
@@ -28,9 +29,10 @@ def run_generation(seed:int=None):
         seed = randbelow(2**32)
 
     generate_elevation(hexgrid, layer_seed(seed, "elevation"))
+    calculate_coastal_proximity(hexgrid)
     generate_moisture(hexgrid, layer_seed(seed, "moisture"))
 
-    hexgrid.print_grid()
+    hexgrid.print_dto_grid()
 
 def layer_seed(base_seed:int, layer:str)->int:
     return xxhash.xxh32(f"{base_seed}:{layer}").intdigest()
