@@ -12,7 +12,7 @@ class HexGrid:
             for y in range(self.ysize):
                 self.grid[(x,y)]=Hex()
 
-    def print_grid(self):
+    def print_elevation_grid(self):
         for y in range(self.ysize):
             # initialize the row, with rightward indent for odd rows
             row = ""
@@ -20,22 +20,37 @@ class HexGrid:
                 row+=" "
             
             for x in range(self.xsize):
-                # Cast biome to letter or x for undefined
                 hex = self.grid[(x,y)]
-                biome_marker = ""
+                elevation_marker = ""
                 if hex.elevation < 0:
-                    biome_marker +="."
+                    elevation_marker +="."
                 elif hex.elevation < .25:
-                    biome_marker +="="
+                    elevation_marker +="="
                 elif hex.elevation <.5:
-                    biome_marker +="#"
+                    elevation_marker +="#"
                 elif hex.elevation <.75:
-                    biome_marker +="M"
+                    elevation_marker +="M"
                 else:
-                    biome_marker +="@"
+                    elevation_marker +="@"
 
-                biome_marker += " "
-                row += biome_marker
+                elevation_marker += " "
+                row += elevation_marker
+            
+            print(row)
+    
+    def print_moisture_grid(self):
+        for y in range(self.ysize):
+            # initialize the row, with rightward indent for odd rows
+            row = ""
+            if y%2==1:
+                row+=" "
+            
+            for x in range(self.xsize):
+                hex = self.grid[(x,y)]
+                
+
+                elevation_marker = f"{hex.moisture:.2f}  "
+                row += elevation_marker
             
             print(row)
 
