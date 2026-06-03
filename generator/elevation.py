@@ -2,7 +2,7 @@ import opensimplex
 
 from hex_grid import HexGrid
 
-BASE_SCALE=0.08
+BASE_SCALE=0.04
 
 def generate_elevation(hexgrid:HexGrid, seed, octaves=6, persistence=0.5, lacunarity=2.0, offset=0.1):
 
