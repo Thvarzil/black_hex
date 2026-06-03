@@ -21,7 +21,19 @@ class HexGrid:
             
             for x in range(self.xsize):
                 # Cast biome to letter or x for undefined
-                biome_marker = self.grid[(x,y)].biome[0] if self.grid[(x,y)].biome else "|"
+                hex = self.grid[(x,y)]
+                biome_marker = ""
+                if hex.elevation < 0:
+                    biome_marker +="."
+                elif hex.elevation < .25:
+                    biome_marker +="="
+                elif hex.elevation <.5:
+                    biome_marker +="#"
+                elif hex.elevation <.75:
+                    biome_marker +="M"
+                else:
+                    biome_marker +="@"
+
                 biome_marker += " "
                 row += biome_marker
             

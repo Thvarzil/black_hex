@@ -32,7 +32,7 @@ def run_generation(seed:int=None):
     calculate_coastal_proximity(hexgrid)
     generate_moisture(hexgrid, layer_seed(seed, "moisture"))
 
-    hexgrid.print_dto_grid()
+    hexgrid.print_grid()
 
 def layer_seed(base_seed:int, layer:str)->int:
     return xxhash.xxh32(f"{base_seed}:{layer}").intdigest()
