@@ -23,7 +23,7 @@ class HexGrid:
                 hex = self.grid[(x,y)]
                 elevation_marker = ""
                 if hex.elevation < 0:
-                    elevation_marker +="."
+                    elevation_marker +=" "
                 elif hex.elevation < .25:
                     elevation_marker +="="
                 elif hex.elevation <.5:
