@@ -19,6 +19,7 @@ from secrets import randbelow
 from generator.coastal_prox import calculate_coastal_proximity
 from generator.elevation import generate_elevation
 from generator.moisture import generate_moisture
+from generator.temperature import generate_temperature
 from hex_grid import HexGrid
 
 def run_generation(seed:int=None):
@@ -31,8 +32,10 @@ def run_generation(seed:int=None):
     generate_elevation(hexgrid, layer_seed(seed, "elevation"))
     calculate_coastal_proximity(hexgrid)
     generate_moisture(hexgrid, layer_seed(seed, "moisture"))
+    generate_temperature(hexgrid, layer_seed(seed, "temperature"))
 
-    hexgrid.print_grid()
+    print(f'Worldseed: {seed}')
+    hexgrid.print_elevation_grid()
 
 def layer_seed(base_seed:int, layer:str)->int:
     return xxhash.xxh32(f"{base_seed}:{layer}").intdigest()
