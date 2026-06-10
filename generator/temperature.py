@@ -1,10 +1,11 @@
 import opensimplex
+import math
 
 from hex_grid import HexGrid
 
 BASE_SCALE=0.04
 
-def generate_temperature(hexgrid:HexGrid, seed, octaves=6, persistence=0.5, lacunarity=2.0):
+def generate_temperature(hexgrid:HexGrid, seed:int, latitude:float,octaves=6, persistence=0.5, lacunarity=2.0):
 
     opensimplex.seed(seed)
     hexes = hexgrid.grid
@@ -25,7 +26,7 @@ def generate_temperature(hexgrid:HexGrid, seed, octaves=6, persistence=0.5, lacu
                 amplitude *= persistence
                 frequency *= lacunarity
             
-            offset=0.1 #TODO calc elevation and latitude offsets
-            hexes[(x,y)].temperature = temperature/max_value + offset
-
-    return "foo"
+            elevation_offset = -math.sqrt(max(hexes[(x,y)].elevation, 0)) * 30
+            latitude_offset=((latitude*2)-1)*15
+            temp_c = (temperature/max_value + 1) / 2 * 25
+            hexes[(x,y)].temperature = int(temp_c + elevation_offset + latitude_offset)

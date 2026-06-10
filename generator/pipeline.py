@@ -5,14 +5,15 @@ This file will need to:
  - Call each step of the generation process:
     1. Run elevation noise pass → `elevation` float per hex in -1..1 DONE
     2. Classify ocean: Apply variable elevation offset, hexes with positive elevation are above water DONE
-    3. Compute `coast_proximity` per hex (BFS distance to nearest ocean tile, normalized)
-    4. Run moisture noise pass; apply coast bonus scaled by `coast_proximity` and `base_humidity`
-    5. Run temperature pass (latitude bias + elevation modifier + noise)
-    6. Classify inland lakes
-    7. Remaining non-water hexes → Whittaker biome lookup(temperature, moisture)
+    3. Compute `coast_proximity` per hex (BFS distance to nearest ocean tile, normalized) DONE
+    4. Run moisture noise pass; apply coast bonus scaled by `coast_proximity` and `base_humidity` DONE
+    5. Run temperature pass (latitude bias + elevation modifier + noise) DONE
+    6. Classify inland lakes -> v1.1
+    7. Remaining non-water hexes → Whittaker biome lookup(temperature, moisture) TODO
  - Return 2d list of hexes
 """
 import xxhash
+import random
 
 from secrets import randbelow
 
@@ -29,10 +30,14 @@ def run_generation(seed:int=None):
     if not seed:
         seed = randbelow(2**32)
 
+    latitude_rng = random.Random(seed)
+    if int(latitude_rng.random()*10)%2==0:
+        hexgrid.hemisphereIsSouth = True
+
     generate_elevation(hexgrid, layer_seed(seed, "elevation"))
     calculate_coastal_proximity(hexgrid)
     generate_moisture(hexgrid, layer_seed(seed, "moisture"))
-    generate_temperature(hexgrid, layer_seed(seed, "temperature"))
+    generate_temperature(hexgrid, layer_seed(seed, "temperature"), latitude_rng.random())
 
     print(f'Worldseed: {seed}')
     hexgrid.print_elevation_grid()
