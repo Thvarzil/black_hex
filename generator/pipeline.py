@@ -25,13 +25,12 @@ from generator.temperature import generate_temperature
 from hex_grid import HexGrid
 
 def run_generation(seed:int=None):
-    hexgrid = HexGrid()
     
     # we are assuming that we either got a usable seed or no input if we got to this point
     if not seed:
         seed = randbelow(2**32)
 
-    hexgrid.seed = seed
+    hexgrid = HexGrid(seed)
 
     latitude_rng = random.Random(seed)
     if int(latitude_rng.random()*10)%2==0:
