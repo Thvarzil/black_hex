@@ -3,6 +3,7 @@ from hex import Hex
 
 @dataclass
 class HexGrid:
+    seed: int
     xsize: int = 50
     ysize: int = 50
     grid: dict[tuple[int,int],Hex] = field(default_factory=dict)

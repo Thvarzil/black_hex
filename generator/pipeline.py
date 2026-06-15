@@ -17,6 +17,7 @@ import random
 
 from secrets import randbelow
 
+from generator.apply_biomes import apply_biomes
 from generator.coastal_prox import calculate_coastal_proximity
 from generator.elevation import generate_elevation
 from generator.moisture import generate_moisture
@@ -29,6 +30,8 @@ def run_generation(seed:int=None):
     # we are assuming that we either got a usable seed or no input if we got to this point
     if not seed:
         seed = randbelow(2**32)
+
+    hexgrid.seed = seed
 
     latitude_rng = random.Random(seed)
     if int(latitude_rng.random()*10)%2==0:

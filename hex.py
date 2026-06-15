@@ -7,5 +7,4 @@ class Hex:
     elevation: float = 0.0
     elevation_m: int = 0 
     moisture: float = 0.0
-    temperature: float = 0.0
-    temperature_c: float = 0.0
+    temperature: int = 0
