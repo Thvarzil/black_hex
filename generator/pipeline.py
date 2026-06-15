@@ -41,6 +41,7 @@ def run_generation(seed:int=None):
     calculate_coastal_proximity(hexgrid)
     generate_moisture(hexgrid, layer_seed(seed, "moisture"))
     generate_temperature(hexgrid, layer_seed(seed, "temperature"), latitude_rng.random())
+    apply_biomes(hexgrid)
 
     print(f'Worldseed: {seed}')
     hexgrid.print_elevation_grid()
